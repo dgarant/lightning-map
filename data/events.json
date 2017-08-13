@@ -1,6 +1,5 @@
 [
     {"src_id" : "Test1", "dest_id" : "Test2", "date" : "2016-01-01"},
-    {"src_id" : "Test1", "dest_id" : "Test2", "date" : "2016-01-02"},
     {"src_id" : "Test5", "dest_id" : "Test6", "date" : "2016-01-03"},
     {"src_id" : "Test5", "dest_id" : "Test6", "date" : "2016-02-03"},
     {"src_id" : "Test5", "dest_id" : "Test6", "date" : "2016-03-03"},
@@ -15,9 +14,7 @@
     {"src_id" : "Test5", "dest_id" : "Test6", "date" : "2016-11-05"},
     {"src_id" : "Test5", "dest_id" : "Test6", "date" : "2016-12-05"},
     {"src_id" : "Test1", "dest_id" : "Test2", "date" : "2016-02-01"},
-    {"src_id" : "Test1", "dest_id" : "Test2", "date" : "2016-02-05"},
     {"src_id" : "Test1", "dest_id" : "Test2", "date" : "2016-03-07"},
-    {"src_id" : "Test1", "dest_id" : "Test2", "date" : "2016-01-08"},
 
     {"src_id" : "Test3", "dest_id" : "Test4", "date" : "2016-01-13"},
     {"src_id" : "Test3", "dest_id" : "Test4", "date" : "2016-02-13"},

@@ -8,7 +8,7 @@ function showMap() {
         height = w.innerHeight || e.clientHeight|| g.clientHeight;
 
     d3.select("#map").style("width", width + "px").style("height", height + "px");
-    var map = L.map("map").setView([40, -70], 5);
+    var map = L.map("map").setView([43.75, -71], 8);
 
     var svg = d3.select(map.getPanes().overlayPane).append("svg");
     var g = svg.append("g").attr("class", "leaflet-zoom-hide");
@@ -98,22 +98,31 @@ function showMap() {
         });
         var keyedEvents = _.groupBy(events, "key");
         var eventDates = _.mapObject(keyedEvents, function(v) {
-            return new Set(_.map(v, function(r) {
-                return parseInt(moment(r.date).format("DDD"))
+            return _.object(_.map(v, function(r) {
+                return [parseInt(moment(r.date).format("DDD")), true];
             }));
         });
 
         var runAnimation = function() {
             var trans = d3.selectAll(".route-path").style("opacity", 1)
-                .transition().duration(20000)
+                .transition().duration(30000).ease(d3.easeLinear)
                 .styleTween("opacity", function() {
                     var nodeData = d3.select(this).datum();
                     var routeName = nodeData.properties.src_id + "-" + nodeData.properties.dest_id;
                     var curEventDates = eventDates[routeName];
                     return function(t) {
-                        var dayOfYear = parseInt(Math.ceil(t * 365.0));
                         var lastEventDay = nodeData.properties.lastEventDay;
-                        if(curEventDates != undefined && curEventDates.has(dayOfYear)) {
+                        var lastDoy = nodeData.properties.lastDoy;
+
+                        var dayOfYear = parseInt(Math.ceil(t * 365.0));
+
+                        if(nodeData.properties.lastDoy != dayOfYear) {
+                            nodeData.properties.lastDoy = dayOfYear;
+                            var date = moment().year(year).dayOfYear(dayOfYear);
+                            d3.select("#date-display").html(date.format("ddd MMM DD YYYY"));
+                        }
+
+                        if(curEventDates != undefined && curEventDates[dayOfYear]) {
                             nodeData.properties.lastEventDay = dayOfYear;
                             return 1;
                         } else if(lastEventDay != undefined) {
